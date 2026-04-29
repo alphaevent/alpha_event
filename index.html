@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpha Event | L'Excellence sans compromis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F1D38E;
+            --black: #0A0A0A;
+            --dark-grey: #1A1A1A;
+            --white: #FFFFFF;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: var(--transition);
+            background: transparent;
+        }
+
+        header.scrolled {
+            background: rgba(10, 10, 10, 0.98);
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-nav img {
+            height: 50px;
+            transition: var(--transition);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--gold);
+            cursor: pointer;
+            z-index: 1001;
+            transition: var(--transition);
+        }
+
+        /* Mobile Navigation Overlay */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: var(--black);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            transition: 0.5s ease-in-out;
+            z-index: 1000;
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+
+        .mobile-nav a {
+            font-size: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            text-transform: uppercase;
+        }
+
+        /* Hero Section */
+        #hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&q=80&w=2000') center/cover no-repeat;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1.5s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-logo {
+            width: 200px;
+            margin-bottom: 30px;
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            cursor: pointer;
+            background: transparent;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gold);
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .btn:hover {
+            color: var(--black);
+            transform: scale(1.05);
+        }
+
+        .btn:hover::before {
+            left: 0;
+        }
+
+        /* Sections General */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .section-title .underline {
+            width: 80px;
+            height: 2px;
+            background: var(--gold);
+            margin: 0 auto;
+            transition: width 1s ease;
+        }
+
+        .reveal.active .underline {
+            width: 150px;
+        }
+
+        /* Concept Section */
+        #concept {
+            background-color: var(--dark-grey);
+        }
+
+        .concept-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .concept-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .concept-text p {
+            margin-bottom: 20px;
+            color: #ccc;
+        }
+
+        .concept-image {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .concept-image img {
+            width: 100%;
+            border: 1px solid var(--gold);
+            padding: 10px;
+            transition: transform 0.8s ease;
+        }
+
+        .concept-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--dark-grey);
+            padding: 40px;
+            text-align: center;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            border: 1px solid var(--gold);
+            opacity: 0;
+            transition: var(--transition);
+            transform: scale(0.95);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            background: #222;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .service-card i {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+            transition: var(--transition);
+        }
+
+        .service-card:hover i {
+            transform: rotateY(360deg);
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* Formation Section */
+        #formation {
+            background-color: var(--dark-grey);
+        }
+
+        .formation-intro {
+            text-align: center;
+            margin-bottom: 50px;
+            color: #ccc;
+            font-size: 1.1rem;
+        }
+
+        .formation-intro .launch-badge {
+            display: inline-block;
+            padding: 10px 20px;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .formation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .formation-card {
+            background: var(--black);
+            padding: 40px;
+            text-align: center;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .formation-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            border: 1px solid var(--gold);
+            opacity: 0;
+            transition: var(--transition);
+            transform: scale(0.95);
+        }
+
+        .formation-card:hover {
+            transform: translateY(-10px);
+            background: #1a1a1a;
+        }
+
+        .formation-card:hover::before {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .formation-card i {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+            transition: var(--transition);
+        }
+
+        .formation-card:hover i {
+            transform: scale(1.1);
+        }
+
+        .formation-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .formation-card p {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        .formation-cta {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .formation-cta h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .formation-cta p {
+            color: #ccc;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        /* Quote Section */
+        #quote {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=2000') center/cover fixed;
+            text-align: center;
+            padding: 150px 0;
+        }
+
+        .quote-content blockquote {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-style: italic;
+            color: var(--gold);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Contact Section */
+        #contact {
+            background-color: var(--black);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--dark-grey);
+            border-left: 3px solid var(--gold);
+            transition: var(--transition);
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+            background: #252525;
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+            color: var(--gold);
+            min-width: 30px;
+        }
+
+        .contact-item span {
+            color: #ccc;
+            font-size: 1rem;
+        }
+
+        .contact-item a {
+            color: var(--gold);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .contact-item a:hover {
+            color: var(--gold-light);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 15px;
+            background: var(--dark-grey);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+            transition: var(--transition);
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: #252525;
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: #888;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            font-size: 1.5rem;
+            color: var(--gold);
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--gold-light);
+            transform: scale(1.2);
+        }
+
+        .copyright {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .concept-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .quote-content blockquote {
+                font-size: 1.8rem;
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <header id="header">
+        <div class="container">
+            <nav>
+                <a href="#" class="logo-nav">
+                    <img src="logo.jpeg" alt="Alpha Event Logo">
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#hero">Accueil</a></li>
+                    <li><a href="#concept">Concept</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#formation">Formation</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="mobile-menu-btn" id="menuBtn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Nav Overlay -->
+    <div class="mobile-nav" id="mobileNav">
+        <a href="#hero" class="mobile-link">Accueil</a>
+        <a href="#concept" class="mobile-link">Concept</a>
+        <a href="#services" class="mobile-link">Services</a>
+        <a href="#formation" class="mobile-link">Formation</a>
+        <a href="#contact" class="mobile-link">Contact</a>
+    </div>
+
+    <section id="hero">
+        <div class="hero-content">
+          
+            <h1>L'Excellence au coeur de vos émotions</h1>
+            <p>Nous ne nous contentons pas d'organiser des événements ; nous créons des standards de prestige.</p>
+            <button onclick="document.getElementById('contact').scrollIntoView()" class="btn">Réserver une consultation</button>
+        </div>
+    </section>
+
+    <section id="concept">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>Notre Concept</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="concept-grid">
+                <div class="concept-text reveal">
+                    <h3>Une Signature Unique</h3>
+                    <p>Alpha Event est une agence multiservice conçue pour les clients exigeants qui recherchent une signature unique. Nous sommes l'architecte de vos moments forts.</p>
+                    <p>Notre approche "Tout-en-un" garantit une cohérence parfaite entre chaque aspect de votre événement, de la première idée à la réalisation finale.</p>
+                </div>
+                <div class="concept-image reveal">
+                    <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=1000" alt="Événement de luxe">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>Nos Services d'Élite</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="services-grid">
+                <div class="service-card reveal">
+                    <i class="fas fa-user-tie"></i>
+                    <h3>Hôtes & Ambassadeurs</h3>
+                    <p>Un protocole d'élite formé par nos soins pour un accueil irréprochable.</p>
+                </div>
+                <div class="service-card reveal">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Gastronomie</h3>
+                    <p>Un service traiteur haut de gamme alliant saveurs d'exception et présentation d'art.</p>
+                </div>
+                <div class="service-card reveal">
+                    <i class="fas fa-palette"></i>
+                    <h3>Direction Artistique</h3>
+                    <p>Danse, Animation et Production Cinématographique pour sublimer vos instants.</p>
+                </div>
+                <div class="service-card reveal">
+                    <i class="fas fa-tasks"></i>
+                    <h3>Logistique Intégrale</h3>
+                    <p>Décoration et Coordination de A à Z pour une tranquillité d'esprit absolue.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="formation">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>Programme de Formation</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="formation-intro reveal">
+                <div class="launch-badge">🚀 Lancement très prochainement</div>
+                <p>Alpha Event lance très bientôt son programme de formation pour Nounous de Prestige. Nous ne formons pas seulement des gardes d'enfants, nous formons des professionnelles de la petite enfance capables d'allier sécurité, éveil et discipline.</p>
+            </div>
+            <div class="formation-grid">
+                <div class="formation-card reveal">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Sécurité et Premiers Secours</h3>
+                    <p>Formation complète aux protocoles de sécurité et aux gestes de premiers secours pour garantir la protection optimale des enfants.</p>
+                </div>
+                <div class="formation-card reveal">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>Éducation et Éveil Ludique</h3>
+                    <p>Méthodes pédagogiques innovantes pour stimuler le développement cognitif et créatif des enfants à travers le jeu.</p>
+                </div>
+                <div class="formation-card reveal">
+                    <i class="fas fa-apple-alt"></i>
+                    <h3>Hygiène et Nutrition</h3>
+                    <p>Standards irréprochables en matière d'hygiène et de nutrition pour assurer le bien-être et la santé des enfants.</p>
+                </div>
+                <div class="formation-card reveal">
+                    <i class="fas fa-handshake"></i>
+                    <h3>Éthique et Savoir-Vivre</h3>
+                    <p>Formation aux valeurs professionnelles, à l'éthique du métier et aux protocoles de savoir-vivre de prestige.</p>
+                </div>
+            </div>
+            <div class="formation-cta reveal">
+                <h3>📝 Pré-inscription Vivement Souhaitable</h3>
+                <p>Garantissez votre place au sein de cette première promotion d'élite de Nounous de Prestige Alpha Event.</p>
+                <button onclick="document.getElementById('contact').scrollIntoView()" class="btn">S'inscrire maintenant</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="quote">
+        <div class="container">
+            <div class="quote-content reveal">
+                <blockquote>"Confiez-nous votre vision, nous en ferons une légende."</blockquote>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <div class="section-title reveal">
+                <h2>Contactez-nous</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info reveal">
+                    <h3>Prêt à créer l'exceptionnel ?</h3>
+                    <p style="margin-bottom: 30px; color: #aaa;">Discutons de votre projet et voyons comment Alpha Event peut transformer votre vision en réalité.</p>
+                    <div class="contact-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <a href="https://wa.me/243828740316" target="_blank">+243 828 740 316</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:Alphonsevava639@gmail.com">Alphonsevava639@gmail.com</a>
+                    </div>
+                </div>
+                <div class="contact-info reveal">
+                    <h3>Nos Canaux de Communication</h3>
+                    <p style="margin-bottom: 30px; color: #aaa;">Contactez-nous directement via WhatsApp ou email pour discuter de votre projet. Nous serons ravis de vous répondre dans les meilleurs délais.</p>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Réponse rapide garantie</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-star"></i>
+                        <span>Service client premium</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="https://www.instagram.com/alpha_event21?igsh=amxvcWh5aHNvZHVn"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/share/1CdxECTtR8/"><i class="fab fa-facebook"></i></a>
+            </div>
+            <p class="copyright">&copy; 2026 Alpha Event. Tous droits réservés. L'excellence au cœur de vos émotions.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Elements
+        const header = document.getElementById('header');
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const menuIcon = menuBtn.querySelector('i');
+
+        // 1. Mobile Menu Toggle
+        menuBtn.addEventListener('click', () => {
+            mobileNav.classList.toggle('active');
+            
+            // Change icon
+            if (mobileNav.classList.contains('active')) {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
+                document.body.style.overflow = 'hidden'; // Prevent scroll
+            } else {
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Close mobile menu on link click
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.remove('active');
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // 2. Header scroll effect
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // 3. Reveal animations on scroll
+        function reveal() {
+            const reveals = document.querySelectorAll(".reveal");
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+        reveal(); // Initial check
+
+        // 4. Interactive Service Cards
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-10px) scale(1)';
+                }, 150);
+            });
+        });
+
+        // 5. Interactive Formation Cards
+        document.querySelectorAll('.formation-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-10px) scale(1)';
+                }, 150);
+            });
+        });
+    </script>
+</body>
+</html>
